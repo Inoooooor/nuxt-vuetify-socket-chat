@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   },
   plugins: ["./plugins/socket.io"],
 
-  modules: ["vuetify-nuxt-module"],
+  modules: ["vuetify-nuxt-module", "@pinia/nuxt"],
   vuetify: {
     moduleOptions: {
       /* module specific options */
