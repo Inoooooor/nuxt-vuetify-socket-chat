@@ -17,6 +17,7 @@
     "vuetify-nuxt-module": "^0.7.1"
   },
   "dependencies": {
-    "nuxt-socket-io": "^3.0.13"
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2"
   }
 }
