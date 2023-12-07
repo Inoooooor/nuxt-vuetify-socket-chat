@@ -31,8 +31,8 @@
       </v-card-title>
       <v-card-text>
         <v-form
-          fast-fail
-          @submit.prevent
+          @submit.prevent="submit"
+          ref="form"
         >
           <v-text-field
             v-model="firstName"
@@ -93,15 +93,26 @@ const countDown = () => {
 
 const firstName = ref("")
 const room = ref("")
+const form = ref()
+
+const submit = async () => {
+  console.log("valid", form.value)
+  const { valid } = await form.value?.validate()
+
+  if (valid) alert("Form is valid")
+}
+
+onMounted(() => {
+  console.log(form.value)
+})
+
 const firstNameRules = [
   (v: string) => !!v || "Введите имя",
   (v: string) => v?.length >= 3 || "Имя должно иметь минимум 3 символа",
   (v: string) => v?.length <= 16 || "Имя не должно превышать 16 символов",
 ]
 const roomInputRules = [
-  (v: string) => !!v || "Must not be empty",
-  (v: string) => /[^0-9]/.test(v) || "Last name can only not contain digits.",
+  (v: string) => !!v || "Поле не должно быть пустым",
+  // (v: string) => /[^0-9]/.test(v) || "Last name can only not contain digits.",
 ]
-
-const submit = () => {}
 </script>
