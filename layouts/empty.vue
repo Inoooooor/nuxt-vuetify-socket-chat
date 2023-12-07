@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app theme="dark">
     <v-container>
       <slot />
     </v-container>

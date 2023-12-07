@@ -21,35 +21,42 @@
         col # {{ n }}</v-col
       >
     </v-row> -->
-    <v-sheet
+    <v-card
       width="400"
       height="400"
       class="mx-auto"
     >
-      <v-form
-        fast-fail
-        @submit.prevent
-      >
-        <v-text-field
-          v-model="firstName"
-          label="First name"
-          :rules="firstNameRules"
-        ></v-text-field>
-
-        <v-text-field
-          v-model="lastName"
-          label="Last name"
-          :rules="lastNameRules"
-        ></v-text-field>
-
-        <v-btn
-          type="submit"
-          block
-          class="mt-2"
-          >Submit</v-btn
+      <v-card-title class="text-center">
+        <h1>Nuxt Чат</h1>
+      </v-card-title>
+      <v-card-text>
+        <v-form
+          fast-fail
+          @submit.prevent
         >
-      </v-form>
-    </v-sheet>
+          <v-text-field
+            v-model="firstName"
+            label="Ваше имя"
+            :rules="firstNameRules"
+            required
+          ></v-text-field>
+
+          <v-text-field
+            v-model="room"
+            label="Комната"
+            :rules="roomInputRules"
+          ></v-text-field>
+
+          <v-btn
+            type="submit"
+            block
+            class="mt-2"
+            color="primary"
+            >Войти
+          </v-btn>
+        </v-form>
+      </v-card-text>
+    </v-card>
   </v-layout>
 </template>
 
@@ -85,19 +92,16 @@ const countDown = () => {
 }
 
 const firstName = ref("")
-const lastName = ref("")
+const room = ref("")
 const firstNameRules = [
-  (value: string) => {
-    if (value?.length > 3) return true
-
-    return "First name must be at least 3 characters."
-  },
+  (v: string) => !!v || "Введите имя",
+  (v: string) => v?.length >= 3 || "Имя должно иметь минимум 3 символа",
+  (v: string) => v?.length <= 16 || "Имя не должно превышать 16 символов",
 ]
-const lastNameRules = [
-  (value: string) => {
-    if (/[^0-9]/.test(value)) return true
-
-    return "Last name can not contain digits."
-  },
+const roomInputRules = [
+  (v: string) => !!v || "Must not be empty",
+  (v: string) => /[^0-9]/.test(v) || "Last name can only not contain digits.",
 ]
+
+const submit = () => {}
 </script>
