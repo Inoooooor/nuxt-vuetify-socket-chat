@@ -1,21 +1,14 @@
 import { defineStore } from "pinia"
+import type { User } from "~/utils/User"
 
 export const useNuxtStore = defineStore("nuxtStore", () => {
-  const test = ref(0)
+  const state = reactive({
+    user: {},
+  })
 
-  const increment = () => test.value++
-
-  const sleep = async (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms))
-
-  const asyncIncrement = async () => {
-    try {
-      await sleep(2000)
-      increment()
-    } catch (error) {
-      console.log(error)
-    }
+  const setUser = (user: User) => {
+    state.user = user
   }
 
-  return { test, increment, asyncIncrement }
+  return { state, setUser }
 })

@@ -69,6 +69,8 @@ definePageMeta({
 
 const store = useNuxtStore()
 
+console.log(store.state.user)
+
 const state = reactive({
   counter: 0,
 })
@@ -99,7 +101,15 @@ const submit = async () => {
   console.log("valid", form.value)
   const { valid } = await form.value?.validate()
 
-  if (valid) alert("Form is valid")
+  if (valid) {
+    alert("Form is valid")
+    store.setUser({
+      name: firstName.value,
+      room: room.value,
+    })
+
+    console.log("set User", store.state)
+  }
 }
 
 onMounted(() => {
