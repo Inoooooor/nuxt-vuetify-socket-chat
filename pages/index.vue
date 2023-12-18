@@ -67,9 +67,11 @@ definePageMeta({
   layout: "empty",
 })
 
+useHead({ title: "Добро пожаловать в Nuxt чат" })
+
 const store = useNuxtStore()
 
-console.log(store.state.user)
+// console.log(store.state.user)
 
 const state = reactive({
   counter: 0,
@@ -98,23 +100,20 @@ const room = ref("")
 const form = ref()
 
 const submit = async () => {
-  console.log("valid", form.value)
+  // console.log("valid", form.value)
   const { valid } = await form.value?.validate()
 
   if (valid) {
-    alert("Form is valid")
-    store.setUser({
-      name: firstName.value,
-      room: room.value,
-    })
-
-    console.log("set User", store.state)
+    // alert("Form is valid")
+    const user: User = { name: firstName.value, room: room.value }
+    store.setUser(user)
+    navigateTo("/chat")
   }
 }
 
-onMounted(() => {
-  console.log(form.value)
-})
+// onMounted(() => {
+//   console.log(form.value)
+// })
 
 const firstNameRules = [
   (v: string) => !!v || "Введите имя",
