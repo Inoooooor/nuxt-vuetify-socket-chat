@@ -4,11 +4,17 @@ import type { User } from "~/utils/User"
 export const useNuxtStore = defineStore("nuxtStore", () => {
   const state = reactive({
     user: {},
+    messages: ["bruh", "hello"],
   })
 
   const setUser = (user: User) => {
     state.user = user
   }
 
-  return { state, setUser }
+  const clear = () => {
+    state.user = {}
+    state.messages = []
+  }
+
+  return { state, setUser, clear }
 })
