@@ -87,12 +87,29 @@ $io.on(SocketEvent.new_count, (count) => {
   console.log("got from server", { count })
 })
 
+$io.on(SocketEvent.new_message, (newMessage: ChatMessage) => {
+  store.newMessage(newMessage)
+  // console.log("got newMessage from server", { newMessage })
+})
+
 const countUp = () => {
   $io.emit(SocketEvent.up, { value: stepSize })
 }
 
 const countDown = () => {
   $io.emit(SocketEvent.down, { value: stepSize })
+}
+
+const userJoinedHandler = (user: User) => {
+  $io.emit(SocketEvent.user_joined, user, (data: any) => {
+    if (data === SocketErrors.wrong_form_input) {
+      console.error(SocketErrors.wrong_form_input)
+    } else {
+      user.id = data.userId
+      store.setUser(user)
+      navigateTo("/chat")
+    }
+  })
 }
 
 const firstName = ref("")
@@ -106,8 +123,8 @@ const submit = async () => {
   if (valid) {
     // alert("Form is valid")
     const user: User = { name: firstName.value, room: room.value }
-    store.setUser(user)
-    navigateTo("/chat")
+
+    userJoinedHandler(user)
   }
 }
 

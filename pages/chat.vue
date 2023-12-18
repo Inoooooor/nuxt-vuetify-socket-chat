@@ -1,13 +1,13 @@
 <template>
   <h1>chat page</h1>
-  <div>{{ username }}</div>
+  <!-- <div>{{ username }}</div> -->
   <div class="">
     <ul>
       <li
-        v-for="(item, index) in messages"
+        v-for="(message, index) in messages"
         :key="index"
       >
-        {{ item }}
+        {{ message.text }}
       </li>
     </ul>
   </div>
