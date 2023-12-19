@@ -45,7 +45,7 @@
 
       <v-main
         class=""
-        style="min-height: 300px"
+        style="min-height: 100dvh"
       >
         <slot />
       </v-main>
